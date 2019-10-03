@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 const Portfolio = require('./../models/portfolioModel');
 const APIFeatures = require('./../utils/apiFeatures');
 const catchAsync = require('./../utils/catchAsync');
@@ -58,4 +60,42 @@ exports.deletePortfolio = catchAsync(async (req, res, next) => {
     status: 'success',
     data: null
   });
+});
+
+exports.updatePortfolioPic = catchAsync(async (req, res, next) => {
+  if (req.file !== null) {
+    const newImg = fs.readFileSync(req.file.path);
+
+    const encImg = newImg.toString('base64');
+    // console.log(encImg);
+
+    const newImgb = {
+      contentType: req.file.mimetype,
+      size: req.file.size,
+      data: encImg
+    };
+    req.body.logo = newImgb;
+    const portfolio = await Portfolio.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+        runValidators: true
+      }
+    );
+    if (!portfolio) {
+      return next(AppError('no formation found with that id', 404));
+    }
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        portfolio
+      }
+    });
+  } else {
+    res.json({
+      fail: 'Please put a photo '
+    });
+  }
 });

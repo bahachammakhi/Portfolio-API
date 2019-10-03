@@ -5,12 +5,17 @@ const portfolioSchema = new mongoose.Schema({
   name: String,
   createdAt: {
     type: Date,
-    default: Data.now()
+    default: Date.now()
   },
-  imageCover: String,
+  imageCover: { data: String, contentType: String },
   description: String,
   details: String,
   link: String
+});
+
+portfolioSchema.pre('save', function(next) {
+  this.slug = slugify(this.name, { lower: true });
+  next();
 });
 
 const Portfolio = mongoose.model('Portfolio', portfolioSchema);
