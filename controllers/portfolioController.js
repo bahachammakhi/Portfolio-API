@@ -41,7 +41,7 @@ exports.updatePortfolio = catchAsync(async (req, res, next) => {
   });
 
   if (!portfolio) {
-    return next(new AppError('No Portfolio found with that id', 404));
+    return next(new AppError('No Project found with that id', 404));
   }
 
   res.status(200).json({
@@ -53,7 +53,7 @@ exports.updatePortfolio = catchAsync(async (req, res, next) => {
 exports.deletePortfolio = catchAsync(async (req, res, next) => {
   const portfolio = await Portfolio.findByIdAndDelete(req.params.id);
   if (!portfolio) {
-    return next(new AppError('No portfolio found with that id', 404));
+    return next(new AppError('No Project found with that id', 404));
   }
 
   res.status(204).json({
@@ -84,7 +84,7 @@ exports.updatePortfolioPic = catchAsync(async (req, res, next) => {
       }
     );
     if (!portfolio) {
-      return next(AppError('no formation found with that id', 404));
+      return next(AppError('no Project found with that id', 404));
     }
 
     res.status(200).json({
