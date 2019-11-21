@@ -8,9 +8,16 @@ const portfolioSchema = new mongoose.Schema({
     default: Date.now()
   },
   imageCover: { data: String, contentType: String },
+  logo: {
+    data: String,
+    contentType: String
+  },
   description: String,
   details: String,
-  link: String
+  backgroundColor: String,
+  link: String,
+  github: String,
+  technologies: [String]
 });
 
 portfolioSchema.pre('save', function(next) {
