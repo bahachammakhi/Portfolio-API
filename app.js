@@ -3,6 +3,8 @@ const cookieParser = require('cookie-parser');
 
 const morgan = require('morgan');
 
+const cors = require('cors');
+
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const userRouter = require('./routes/userRoutes');
@@ -20,6 +22,8 @@ if (process.env.NODE_ENV === 'development') {
 app.use(cookieParser());
 
 app.use(express.json());
+
+app.use(cors());
 
 app.use(express.static(`${__dirname}/public`));
 
