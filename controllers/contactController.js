@@ -26,10 +26,10 @@ exports.createContact = catchAsync(async (req, res, next) => {
 		message: req.body.message,
 		subject: '👻Mail from my Portfolio👻'
 	};
-	sendEmail(options);
+	const emailsended = sendEmail(options);
 	res.status(201).json({
 		status: 'success',
-		email: 'sended',
+		email: emailsended,
 		data: {
 			contact: newContact
 		}
