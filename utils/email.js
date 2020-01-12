@@ -25,7 +25,8 @@ const sendEmail = async (options) => {
 		).format('MMMM Do YYYY, h:mm:ss a')}</div></div>`
 	};
 	//3 Actually send the email
-	await transporter.sendMail(mailOptions);
+	let result = await transporter.sendMail(mailOptions);
+	return result;
 };
 
 module.exports = sendEmail;
